@@ -1,0 +1,24 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: flink-master-controller
+  namespace: flink-cluster
+spec:
+  replicas: 1
+  selector:
+    component: flink-master
+  template:
+    metadata:
+      labels:
+        component: flink-master
+    spec:
+      containers:
+        - name: flink-master
+          image: melentye/flink
+          command: ["/opt/flink/bin/start-master.sh"]
+          ports:
+            - containerPort: 6123
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: 100m
