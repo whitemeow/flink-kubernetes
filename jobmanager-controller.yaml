@@ -1,21 +1,21 @@
 kind: ReplicationController
 apiVersion: v1
 metadata:
-  name: flink-master-controller
-  namespace: flink-cluster
+  name: jobmanager-controller
+  namespace: flink
 spec:
   replicas: 1
   selector:
-    component: flink-master
+    component: jobmanager
   template:
     metadata:
       labels:
-        component: flink-master
+        component: jobmanager
     spec:
       containers:
-        - name: flink-master
-          image: melentye/flink
-          command: ["/opt/flink/bin/start-master.sh"]
+        - name: jobmanager
+          image: melentye/flink:1.1.3-custom-akka3
+          args: ["jobmanager", "jobmanager.flink.svc.cluster.local"]
           ports:
             - containerPort: 6123
             - containerPort: 8081

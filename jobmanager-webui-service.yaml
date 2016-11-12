@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: jobmanager-webui
+  namespace: flink
+spec:
+  selector:
+    component: jobmanager
+  ports:
+    - port: 8081
+      targetPort: 8081
+      name: http
+  
