@@ -6,6 +6,8 @@ Very much influenced by [Spark Example](https://github.com/kubernetes/applicatio
 
 The Docker images are based on https://github.com/melentye/flink-docker
 
+# Setup
+
 ## Step Zero: Prerequisites
 
 - You have a Kubernetes cluster installed and running. Use [Minikube](https://github.com/kubernetes/minikube) for local testing.
@@ -41,7 +43,7 @@ You can find your cluster name and user name in kubernetes config in ~/.kube/con
 The Job Manager [service](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/services.md) is the master service for a Flink cluster.
 
 Use the
-[`flink-jobmanager-controller.yaml`](flink-jobmanager-controller.yaml)
+[`jobmanager-controller.yaml`](jobmanager-controller.yaml)
 file to create a
 [replication controller](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/replication-controller.md)
 running the Flink Job Manager.
@@ -78,16 +80,57 @@ jobmanager-controller-5u0q5     1/1       Running   0          8m
 Check logs to see the status of the Job Manager. (Use the pod name retrieved on the previous step.)
 
 ```console
-$ kubectl logs flink-master-controller-5u0q5
-2016-06-19 21:48:52,039 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager actor
-2016-06-19 21:48:52,042 INFO  org.apache.flink.runtime.blob.BlobServer                      - Created BLOB server storage directory /tmp/blobStore-c6d0abf6-b64b-47a4-9c9b-7e3b8ef7e53f
-2016-06-19 21:48:52,050 INFO  org.apache.flink.runtime.blob.BlobServer                      - Started BLOB server at 0.0.0.0:33556 - max concurrent requests: 50 - max backlog: 1000
-2016-06-19 21:48:52,061 INFO  org.apache.flink.runtime.checkpoint.SavepointStoreFactory     - Using job manager savepoint state backend.
-2016-06-19 21:48:52,070 INFO  org.apache.flink.runtime.jobmanager.MemoryArchivist           - Started memory archivist akka://flink/user/archive
-2016-06-19 21:48:52,072 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager at akka.tcp://flink@192.168.137.3:6123/user/jobmanager.
-2016-06-19 21:48:52,076 INFO  org.apache.flink.runtime.jobmanager.JobManager                - JobManager akka.tcp://flink@192.168.137.3:6123/user/jobmanager was granted leadership with leader session ID None.
-2016-06-19 21:48:52,078 INFO  org.apache.flink.runtime.webmonitor.WebRuntimeMonitor         - Starting with JobManager akka.tcp://flink@192.168.137.3:6123/user/jobmanager on port 8080
-2016-06-19 21:48:52,079 INFO  org.apache.flink.runtime.webmonitor.JobManagerRetriever       - New leader reachable under akka.tcp://flink@192.168.137.3:6123/user/jobmanager:null.
+$ kubectl logs jobmanager-controller-5u0q5
+[...]
+--------------------------------------------------------------------------------
+2016-11-12 21:34:32,100 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Starting JobManager (Version: 1.1.3, Rev:3c95f71, Date:19.10.2016 @ 17:54:57 CEST)
+2016-11-12 21:34:32,100 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Current user: root
+2016-11-12 21:34:32,100 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  JVM: OpenJDK 64-Bit Server VM - Oracle Corporation - 1.8/25.66-b17
+2016-11-12 21:34:32,101 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Maximum heap size: 245 MiBytes
+2016-11-12 21:34:32,101 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  JAVA_HOME: /usr/lib/jvm/java-1.8-openjdk
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Hadoop version: 2.3.0
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  JVM Options:
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     -Xms256m
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     -Xmx256m
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     -Dlog.file=/opt/flink-1.1.3-custom-akka3/log/flink--jobmanager-0-jobmanager-controller-i4oc9.log
+2016-11-12 21:34:32,103 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     -Dlog4j.configuration=file:/opt/flink-1.1.3-custom-akka3/conf/log4j.properties
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     -Dlogback.configurationFile=file:/opt/flink-1.1.3-custom-akka3/conf/logback.xml
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Program Arguments:
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     --configDir
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     /opt/flink-1.1.3-custom-akka3/conf
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     --executionMode
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -     cluster
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                -  Classpath: /opt/flink-1.1.3-custom-akka3/lib/flink-dist_2.10-1.1.3.jar:/opt/flink-1.1.3-custom-akka3/lib/flink-python_2.10-1.1.3.jar:/opt/flink-1.1.3-custom-akka3/lib/log4j-1.2.17.jar:/opt/flink-1.1.3-custom-akka3/lib/slf4j-log4j12-1.7.7.jar:::
+2016-11-12 21:34:32,104 INFO  org.apache.flink.runtime.jobmanager.JobManager                - --------------------------------------------------------------------------------
+2016-11-12 21:34:32,106 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Registered UNIX signal handlers for [TERM, HUP, INT]
+2016-11-12 21:34:32,222 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Loading configuration from /opt/flink-1.1.3-custom-akka3/conf
+2016-11-12 21:34:32,232 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager without high-availability
+2016-11-12 21:34:32,236 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager on 0.0.0.0:6123 with execution mode CLUSTER
+2016-11-12 21:34:32,258 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Security is not enabled. Starting non-authenticated JobManager.
+2016-11-12 21:34:32,265 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager
+2016-11-12 21:34:32,266 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager actor system at 0.0.0.0:6123
+2016-11-12 21:34:32,330 INFO  org.apache.flink.runtime.akka.AkkaUtils$                      - Using listening address "0.0.0.0":6123 and external address "10.0.0.240":6123
+2016-11-12 21:34:32,577 INFO  akka.event.slf4j.Slf4jLogger                                  - Slf4jLogger started
+2016-11-12 21:34:32,615 INFO  Remoting                                                      - Starting remoting
+2016-11-12 21:34:32,740 INFO  Remoting                                                      - Remoting started; listening on addresses :[akka.tcp://flink@10.0.0.240:6123]
+2016-11-12 21:34:32,745 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager web frontend
+2016-11-12 21:34:32,765 INFO  org.apache.flink.runtime.webmonitor.WebMonitorUtils           - Determined location of JobManager log file: /opt/flink-1.1.3-custom-akka3/log/flink--jobmanager-0-jobmanager-controller-i4oc9.log
+2016-11-12 21:34:32,765 INFO  org.apache.flink.runtime.webmonitor.WebMonitorUtils           - Determined location of JobManager stdout file: /opt/flink-1.1.3-custom-akka3/log/flink--jobmanager-0-jobmanager-controller-i4oc9.out
+2016-11-12 21:34:32,808 INFO  org.apache.flink.runtime.webmonitor.WebRuntimeMonitor         - Using directory /tmp/flink-web-42636f9e-2e7b-468b-9a50-f3bf2a3ad196 for the web interface files
+2016-11-12 21:34:32,808 INFO  org.apache.flink.runtime.webmonitor.WebRuntimeMonitor         - Using directory /tmp/flink-web-upload-7af4968b-96cd-4e3e-8fec-2430bdf32e09 for web frontend JAR file uploads
+2016-11-12 21:34:33,020 INFO  org.apache.flink.runtime.webmonitor.WebRuntimeMonitor         - Web frontend listening at 0:0:0:0:0:0:0:0:8081
+2016-11-12 21:34:33,021 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager actor
+2016-11-12 21:34:33,026 INFO  org.apache.flink.runtime.blob.BlobServer                      - Created BLOB server storage directory /tmp/blobStore-66dae3f5-eabd-4f11-bbae-35a0222dd192
+2016-11-12 21:34:33,027 INFO  org.apache.flink.runtime.blob.BlobServer                      - Started BLOB server at 0.0.0.0:40125 - max concurrent requests: 50 - max backlog: 1000
+2016-11-12 21:34:33,031 INFO  org.apache.flink.runtime.checkpoint.savepoint.SavepointStoreFactory  - Using job manager savepoint state backend.
+2016-11-12 21:34:33,034 INFO  org.apache.flink.runtime.metrics.MetricRegistry               - No metrics reporter configured, no metrics will be exposed/reported.
+2016-11-12 21:34:33,039 INFO  org.apache.flink.runtime.jobmanager.MemoryArchivist           - Started memory archivist akka://flink/user/archive
+2016-11-12 21:34:33,042 INFO  org.apache.flink.runtime.jobmanager.JobManager                - Starting JobManager at akka.tcp://flink@10.0.0.240:6123/user/jobmanager.
+2016-11-12 21:34:33,044 INFO  org.apache.flink.runtime.webmonitor.WebRuntimeMonitor         - Starting with JobManager akka.tcp://flink@10.0.0.240:6123/user/jobmanager on port 8081
+2016-11-12 21:34:33,044 INFO  org.apache.flink.runtime.webmonitor.JobManagerRetriever       - New leader reachable under akka.tcp://flink@10.0.0.240:6123/user/jobmanager:null.
+2016-11-12 21:34:33,051 INFO  org.apache.flink.runtime.clusterframework.standalone.StandaloneResourceManager  - Trying to associate with JobManager leader akka.tcp://flink@10.0.0.240:6123/user/jobmanager
+2016-11-12 21:34:33,079 INFO  org.apache.flink.runtime.jobmanager.JobManager                - JobManager akka.tcp://flink@10.0.0.240:6123/user/jobmanager was granted leadership with leader session ID None.
+2016-11-12 21:34:33,085 INFO  org.apache.flink.runtime.clusterframework.standalone.StandaloneResourceManager  - Resource Manager associating with leading JobManager Actor[akka://flink/user/jobmanager#1759222010] - leader session null
 ```
 
 After you know the master is running, you can use the [cluster
@@ -103,7 +146,7 @@ At which point the UI will be available at
 
 ## Step Three: Start your Flink Task Managers
 
-Use the [`taskmanager-controller.yaml`](taskmanager-worker-controller.yaml) file to create a
+Use the [`taskmanager-controller.yaml`](taskmanager-controller.yaml) file to create a
 [replication controller](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/replication-controller.md) that manages the Task Manager pods.
 
 ```console
@@ -135,3 +178,19 @@ $ kubectl logs jobmanager-controller-5u0q5
 
 Assuming you still have the `kubectl proxy` running from the previous section,
 you should now see the Task Managers in the UI as well.
+
+# Usage
+
+## Connecting to Job Manager Web UI
+
+See above for `kubectl proxy` examples. It works well on real Kubernetes cluster but minikube might need a different approach.
+
+## Submitting Jobs
+
+One option is to use Web UI, upload a JAR and submit a job from there.
+
+
+
+### Flink Compatibility
+
+[FLINK-2821](https://issues.apache.org/jira/browse/FLINK-2821) which is strictly speaking not a Flink bug, seems to be preventing Task Managers from talking to Job Managers because of the recipient IP address mismatch. Therefore we're using a Docker image with a custom Akka 3 build of Flink 1.1.3 instead of the vanilla 1.1.3.
