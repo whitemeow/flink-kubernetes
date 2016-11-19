@@ -10,4 +10,7 @@ spec:
     - port: 6123
       targetPort: 6123
       name: flink
-  
+    - port: 50101
+      targetPort: 50101
+      name: blobserver
+
