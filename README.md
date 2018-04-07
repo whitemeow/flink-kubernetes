@@ -55,7 +55,8 @@ replicationcontroller "jobmanager-controller" created
 
 Then, use the
 [`jobmanager-service.yaml`](jobmanager-service.yaml) file to
-create a logical service endpoint that Flink Task Managers can use to access the Job Manager pod.
+create a logical service endpoint that Flink Task Managers can use to access the Job Manager pod. It fact, even the Job
+Manager pods will fail to start before executing this step, since they attempt to use the resulting DNS record on startup.
 
 ```console
 $ kubectl create -f jobmanager-service.yaml
