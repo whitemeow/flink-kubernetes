@@ -184,7 +184,11 @@ you should now see the Task Managers in the UI as well.
 
 ## Connecting to Job Manager Web UI
 
-See above for `kubectl proxy` examples. It works well on real Kubernetes cluster but minikube might need a different approach.
+See above for `kubectl proxy` examples. It works well on real Kubernetes cluster but if you are running 'minikube' you need to run this command that works for me:
+```console
+$ kubectl.exe  port-forward jobmanager-controller-ppnmx  8090:8081 
+```
+You need to adjust the pods of the jobmanager and the port you would like to forward to.
 
 ## Submitting Jobs
 
