@@ -5,16 +5,14 @@ metadata:
   namespace: flink
 spec:
   selector:
-   app: flink
-   component: jobmanager
+    app: flink
+    component: jobmanager
   ports:
   - name: rpc
-   port: 6123
+    port: 6123
   - name: blob
-   port: 6124
+    port: 6124
   - name: query
-   port: 6125
+    port: 6125
   - name: ui
-   port: 8081
-
-
+    port: 8081

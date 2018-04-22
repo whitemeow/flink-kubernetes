@@ -1,6 +1,6 @@
 # Flink on Kubernetes
 
-Forked from https://github.com/melentye/flink-kubernetes.
+Forked from https://github.com/melentye/flink-kubernetes.  
 Upgrade to latest flink image and upgrade the kubernetes configuration. 
 
 ## Sources

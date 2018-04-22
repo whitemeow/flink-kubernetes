@@ -5,8 +5,6 @@ metadata:
   namespace: flink
 spec:
   replicas: 1
-  selector:
-    component: jobmanager
   template:
     metadata:
       labels:
@@ -14,25 +12,26 @@ spec:
         component: jobmanager
     spec:
       containers:
-        - name: jobmanager
-          image: flink:v1.4.2
-          - jobmanager
-          ports:
-          - containerPort: 6123
-            name: rpc
-          - containerPort: 6124
-            name: blob
-          - containerPort: 6125
-            name: query
-          - containerPort: 8081
-            name: ui
-          resources:
-            requests:
-              memory: "512Mi"
-              cpu: "2"
-            limits:
-              memory: "2Gi"
-              cpu: "2"
-          env:
-          - name: JOB_MANAGER_RPC_ADDRESS
-            value: flink-jobmanager
+      - name: jobmanager
+        image: flink:1.4.2-scala_2.11
+        args:
+        - jobmanager
+        ports:
+        - containerPort: 6123
+          name: rpc
+        - containerPort: 6124
+          name: blob
+        - containerPort: 6125
+          name: query
+        - containerPort: 8081
+          name: ui
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "2"
+          limits:
+            memory: "2Gi"
+            cpu: "2"
+        env:
+        - name: JOB_MANAGER_RPC_ADDRESS
+          value: flink-jobmanager
