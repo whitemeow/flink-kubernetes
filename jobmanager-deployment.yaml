@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flink-jobmanager
+  namespace: flink
+spec:
+  replicas: 1
+  selector:
+    component: jobmanager
+  template:
+    metadata:
+      labels:
+        app: flink
+        component: jobmanager
+    spec:
+      containers:
+        - name: jobmanager
+          image: flink:v1.4.2
+          - jobmanager
+          ports:
+          - containerPort: 6123
+            name: rpc
+          - containerPort: 6124
+            name: blob
+          - containerPort: 6125
+            name: query
+          - containerPort: 8081
+            name: ui
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "2"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+          env:
+          - name: JOB_MANAGER_RPC_ADDRESS
+            value: flink-jobmanager

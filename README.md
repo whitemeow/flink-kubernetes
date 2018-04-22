@@ -1,17 +1,18 @@
 # Flink on Kubernetes
 
-Very much influenced by [Spark Example](https://github.com/kubernetes/application-images/tree/master/spark)
+Forked from https://github.com/melentye/flink-kubernetes.
+Upgrade to latest flink image and upgrade the kubernetes configuration. 
 
 ## Sources
 
-The Docker images are based on https://github.com/melentye/flink-docker
+The Docker images are based on https://github.com/melentye/flink-docker  
+*TODO: change it later*
 
 # Setup
 
 ## Step Zero: Prerequisites
 
-- You have a Kubernetes cluster installed and running. Use [Minikube](https://github.com/kubernetes/minikube) for local testing.
-- You have the ```kubectl``` command line tool somewhere in your path.
+- You have a pre installed Kubernetes cluster installed and running. 
 
 ## Step One: Create namespace
 
@@ -43,7 +44,7 @@ You can find your cluster name and user name in kubernetes config in ~/.kube/con
 The Job Manager [service](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/services.md) is the master service for a Flink cluster.
 
 Use the
-[`jobmanager-controller.yaml`](jobmanager-controller.yaml)
+[`jobmanager-controller.yaml`](jobmanager-deployment.yaml)
 file to create a
 [replication controller](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/replication-controller.md)
 running the Flink Job Manager.
