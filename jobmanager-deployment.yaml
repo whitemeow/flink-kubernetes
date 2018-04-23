@@ -35,3 +35,5 @@ spec:
         env:
         - name: JOB_MANAGER_RPC_ADDRESS
           value: flink-jobmanager
+        - name: JOB_MANAGER_HEAP_MB
+          value: 2048

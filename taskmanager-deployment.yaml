@@ -33,3 +33,7 @@ spec:
         env:
         - name: JOB_MANAGER_RPC_ADDRESS
           value: flink-jobmanager
+        - name: NUMBER_OF_TASK_SLOTS
+          value: 2
+        - name: TASK_MANAGER_HEAP_MB
+          value: 2048
