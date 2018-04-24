@@ -4,7 +4,7 @@ Forked from https://github.com/melentye/flink-kubernetes.
 
 Upgrade to latest flink image and upgrade the kubernetes configuration.
 
-Add flink docker build script changed based on [flink source](https://github.com/apache/flink/tree/master/flink-contrib/docker-flink)
+Add flink image building script changed based on [flink source](https://github.com/apache/flink/tree/master/flink-contrib/docker-flink)
 
 ## Sources
 

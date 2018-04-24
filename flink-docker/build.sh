@@ -95,7 +95,7 @@ if [ -n "${FROM_RELEASE}" ]; then
 elif [ -n "${FROM_LOCAL}" ]; then
 
 # DIST_DIR="../../flink-dist/target/flink-*-bin"
-  FLINK_DIST="images/flink-1.4.2-bin-hadoop28-scala_2.11.tgz"
+  FLINK_DIST="flink-package/flink-1.4.2-bin-hadoop28-scala_2.11.tgz"
   echo "Using flink dist: ${FLINK_DIST}"
 # tar -C ${DIST_DIR} -cvzf "${FLINK_DIST}" .
 
