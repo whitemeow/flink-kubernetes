@@ -1,12 +1,21 @@
 # Flink on Kubernetes
 
 Forked from https://github.com/melentye/flink-kubernetes.  
-Upgrade to latest flink image and upgrade the kubernetes configuration. 
+
+Upgrade to latest flink image and upgrade the kubernetes configuration.
+
+Add flink docker build script changed based on [flink source](https://github.com/apache/flink/tree/master/flink-contrib/docker-flink)
 
 ## Sources
 
-The Docker images are based on https://github.com/melentye/flink-docker  
-*TODO: change it later*
+```console
+./build.sh --from-release --flink-version 1.4.2 --hadoop-version 2.8 --scala-version 2.11 --image-name flink-pdd:v1.4.2
+
+or
+
+# download flink package from http://mirror.bit.edu.cn/apache/flink/flink-1.4.2/ to flik-docker/images
+./build.sh --from-local-dist --image-name flink-pdd:v1.4.2
+```
 
 # Setup
 

@@ -16,7 +16,7 @@
 # limitations under the License.
 ################################################################################
 
-FROM flink:v1.4.2
+FROM java:8-jre-alpine
 
 # Install requirements
 RUN apk add --no-cache bash snappy
