@@ -14,7 +14,7 @@ Change flink image entrypoint.sh to support more dynamic environment variables.
 
 or
 
-# download flink package from http://mirror.bit.edu.cn/apache/flink/flink-1.4.2/ to flik-docker/images
+# download flink package from http://mirror.bit.edu.cn/apache/flink/flink-1.4.2/ to flik-docker/flink-package
 ./build.sh --from-local-dist --image-name flink-pdd:v1.4.2
 ```
 

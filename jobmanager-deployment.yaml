@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: jobmanager
-        image: flink:1.4.2-scala_2.11
+        image: flink-pdd:v1.4.2
         args:
         - jobmanager
         ports:
