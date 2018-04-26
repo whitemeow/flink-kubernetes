@@ -37,3 +37,5 @@ spec:
           value: flink-jobmanager
         - name: JOB_MANAGER_HEAP_MB
           value: 2048
+        - name: STATE_CHECKPOINTS_DIR
+          value: "hdfs://abc"

@@ -39,6 +39,7 @@ RUN set -x && \
 
 #replace the old one
 COPY docker-entrypoint.sh /
+RUN chmod +x docker-entrypoint.sh
 
 USER flink
 EXPOSE 8081 6123
