@@ -37,7 +37,8 @@ RUN set -x && \
   chown -R flink:flink $FLINK_INSTALL_PATH/flink-* && \
   chown -h flink:flink $FLINK_HOME
 
-#replace the old one
+##should we add volumn to represent blob.storage.directory: /flink-blob/
+
 COPY docker-entrypoint.sh /
 RUN chmod +x docker-entrypoint.sh
 
