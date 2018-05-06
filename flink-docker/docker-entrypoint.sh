@@ -34,6 +34,10 @@ elif [ "$1" == "jobmanager" ]; then
     echo "blob.server.port: 6124" >> "$FLINK_HOME/conf/flink-conf.yaml"
     echo "query.server.port: 6125" >> "$FLINK_HOME/conf/flink-conf.yaml"
 
+    echo "metrics.reporters: prom" >> "$FLINK_HOME/conf/flink-conf.yaml"
+    echo "metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter" >> "$FLINK_HOME/conf/flink-conf.yaml"
+    echo "metrics.reporter.prom.port: 9250-9300" >> "$FLINK_HOME/conf/flink-conf.yaml"
+
 
     ### if STATE_CHECKPOINTS_DIR is set, append environment to the config file
     if [ "${STATE_CHECKPOINTS_DIR}" == "" ]; then

@@ -206,6 +206,32 @@ You need to adjust the pods of the jobmanager and the port you would like to for
 One option is to use Web UI, upload a JAR and submit a job from there.
 
 
+# flink image config
+## config docker-entrypoint.sh
+docker-entrypoint.sh is located at flink-kubernetes/flink-docker/docker-entrypoint.sh.
+
+some problems we should resolve firstly.
+
++ hdfs checkpoint backend access permission
+
+the permissions of hdfs path as follows:
+```console
+[cy@xxx] /opt/flink/conf$ hadoop fs -ls /flink/store
+Found 2 items
+drwxr-xr-x   - hdfs hdfs          0 2018-05-02 20:45 /flink/store/checkpoints
+drwxr-xr-x   - hdfs hdfs          0 2018-05-06 20:34 /flink/store/metadata
+
+```
+only user hdfs:hdfs has permission to access these folders. We can change the ownership of these folders to flink:flink, but it will result in another issues when user switch
+from flink on yarn to flink on k8s. When user swithes from flink on yarn to flink on k8s, user still have not write permission to the former checkpoint path.
+
+For the time being, we use hdfs:hdfs in docker, so that we can access the hdfs folders easily.  
+
+
++  
+
+
+
 
 ### Flink Compatibility
 

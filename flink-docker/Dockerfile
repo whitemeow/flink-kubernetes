@@ -33,9 +33,9 @@ ARG flink_dist=NOT_SET
 ADD $flink_dist $FLINK_INSTALL_PATH
 RUN set -x && \
   ln -s $FLINK_INSTALL_PATH/flink-* $FLINK_HOME && \
-  addgroup -S flink && adduser -D -S -H -G flink -h $FLINK_HOME flink && \
-  chown -R flink:flink $FLINK_INSTALL_PATH/flink-* && \
-  chown -h flink:flink $FLINK_HOME
+  addgroup -S hdfs && adduser -D -S -H -G hdfs -h $FLINK_HOME hdfs && \
+  chown -R hdfs:hdfs $FLINK_INSTALL_PATH/flink-* && \
+  chown -h hdfs:hdfs $FLINK_HOME
 
 ##should we add volumn to represent blob.storage.directory: /flink-blob/
 
