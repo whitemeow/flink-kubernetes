@@ -25,6 +25,8 @@ JOB_MANAGER_RPC_ADDRESS=${JOB_MANAGER_RPC_ADDRESS:-$(hostname -f)}
 if [ "$1" == "--help" -o "$1" == "-h" ]; then
     echo "Usage: $(basename $0) (jobmanager|taskmanager)"
     exit 0
+
+
 elif [ "$1" == "jobmanager" ]; then
     echo "Starting Job Manager"
     sed -i -e "s/jobmanager.rpc.address: localhost/jobmanager.rpc.address: ${JOB_MANAGER_RPC_ADDRESS}/g" $FLINK_HOME/conf/flink-conf.yaml
@@ -34,9 +36,9 @@ elif [ "$1" == "jobmanager" ]; then
     echo "blob.server.port: 6124" >> "$FLINK_HOME/conf/flink-conf.yaml"
     echo "query.server.port: 6125" >> "$FLINK_HOME/conf/flink-conf.yaml"
 
-    echo "metrics.reporters: prom" >> "$FLINK_HOME/conf/flink-conf.yaml"
-    echo "metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter" >> "$FLINK_HOME/conf/flink-conf.yaml"
-    echo "metrics.reporter.prom.port: 9250-9300" >> "$FLINK_HOME/conf/flink-conf.yaml"
+    #echo "metrics.reporters: prom" >> "$FLINK_HOME/conf/flink-conf.yaml"
+    #echo "metrics.reporter.prom.class: org.apache.flink.metrics.prometheus.PrometheusReporter" >> "$FLINK_HOME/conf/flink-conf.yaml"
+    #echo "metrics.reporter.prom.port: 9250-9300" >> "$FLINK_HOME/conf/flink-conf.yaml"
 
 
     ### if STATE_CHECKPOINTS_DIR is set, append environment to the config file
@@ -45,6 +47,8 @@ elif [ "$1" == "jobmanager" ]; then
     fi
     echo "config file: " && grep '^[^\n#]' $FLINK_HOME/conf/flink-conf.yaml
     exec $FLINK_HOME/bin/jobmanager.sh start-foreground cluster
+
+
 elif [ "$1" == "taskmanager" ]; then
     sed -i -e "s/jobmanager.rpc.address: localhost/jobmanager.rpc.address: ${JOB_MANAGER_RPC_ADDRESS}/g" $FLINK_HOME/conf/flink-conf.yaml
     sed -i -e "s/taskmanager.numberOfTaskSlots: 1/taskmanager.numberOfTaskSlots: ${NUMBER_OF_TASK_SLOTS}/g" $FLINK_HOME/conf/flink-conf.yaml
@@ -58,5 +62,7 @@ elif [ "$1" == "taskmanager" ]; then
     echo "config file: " && grep '^[^\n#]' $FLINK_HOME/conf/flink-conf.yaml
     exec $FLINK_HOME/bin/taskmanager.sh start-foreground
 fi
+
+
 
 exec "$@"

@@ -31,13 +31,14 @@ ARG flink_dist=NOT_SET
 
 # Install build dependencies and flink
 ADD $flink_dist $FLINK_INSTALL_PATH
-RUN set -x && \
+
+##should we add volumn to represent blob.storage.directory: /flink-blob/
+RUN set -x && mkdir /flink-blob && chmod -R 777 /flink-blob && \
   ln -s $FLINK_INSTALL_PATH/flink-* $FLINK_HOME && \
   addgroup -S hdfs && adduser -D -S -H -G hdfs -h $FLINK_HOME hdfs && \
   chown -R hdfs:hdfs $FLINK_INSTALL_PATH/flink-* && \
   chown -h hdfs:hdfs $FLINK_HOME
 
-##should we add volumn to represent blob.storage.directory: /flink-blob/
 
 COPY docker-entrypoint.sh /
 RUN chmod +x docker-entrypoint.sh
