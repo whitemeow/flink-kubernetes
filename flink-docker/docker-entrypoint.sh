@@ -42,7 +42,7 @@ elif [ "$1" == "jobmanager" ]; then
 
 
     ### if STATE_CHECKPOINTS_DIR is set, append environment to the config file
-    if [ "${STATE_CHECKPOINTS_DIR}" == "" ]; then
+    if [ "${STATE_CHECKPOINTS_DIR}" != "" ]; then
         echo  "state.checkpoints.dir: ${STATE_CHECKPOINTS_DIR}" >> $FLINK_HOME/conf/flink-conf.yaml
     fi
     echo "config file: " && grep '^[^\n#]' $FLINK_HOME/conf/flink-conf.yaml
