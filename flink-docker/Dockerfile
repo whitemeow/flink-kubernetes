@@ -43,7 +43,7 @@ RUN set -x && mkdir /flink-blob && chmod -R 777 /flink-blob && \
 COPY docker-entrypoint.sh /
 RUN chmod +x docker-entrypoint.sh
 
-USER flink
+USER hdfs
 EXPOSE 8081 6123
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["--help"]

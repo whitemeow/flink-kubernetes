@@ -60,8 +60,13 @@ file to create a
 running the Flink Job Manager.
 
 ```console
-$ kubectl create -f jobmanager-controller.yaml
-replicationcontroller "jobmanager-controller" created
+$ kubectl create -f jobmanager-deployment.yaml
+  deployment "flink-jobmanager" created
+```
+
+we can check conf/flink-conf.yaml as follows.
+```console
+kubectl exec -it fink-jobmanager-xxxxx /bin/bash
 ```
 
 Then, use the
